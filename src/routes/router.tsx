@@ -25,6 +25,10 @@ import { LabReportDetailPage } from "@/pages/patient/LabReportDetailPage";
 import { BillingPage } from "@/pages/patient/BillingPage";
 import { InvoiceDetailPage } from "@/pages/patient/InvoiceDetailPage";
 import { ReceptionDashboardPage } from "@/pages/staff/ReceptionDashboardPage";
+import { ReceptionPatientsPage } from "@/pages/reception/ReceptionPatientsPage";
+import { ReceptionPatientDetailPage } from "@/pages/reception/ReceptionPatientDetailPage";
+import { ReceptionAppointmentsPage } from "@/pages/reception/ReceptionAppointmentsPage";
+import { QueueBoardPage } from "@/pages/reception/QueueBoardPage";
 import { DoctorDashboardPage } from "@/pages/staff/DoctorDashboardPage";
 import { NurseDashboardPage } from "@/pages/staff/NurseDashboardPage";
 import { PharmacyDashboardPage } from "@/pages/staff/PharmacyDashboardPage";
@@ -82,9 +86,10 @@ export function AppRouter() {
         <Route element={<RoleGate allow={[Role.RECEPTIONIST]} />}>
           <Route element={<StaffAppShell />}>
             <Route path="/reception" element={<ReceptionDashboardPage />} />
-            <Route path="/reception/patients" element={<ComingSoon title="Patients" />} />
-            <Route path="/reception/appointments" element={<ComingSoon title="Appointments" />} />
-            <Route path="/reception/queue" element={<ComingSoon title="Queue board" />} />
+            <Route path="/reception/patients" element={<ReceptionPatientsPage />} />
+            <Route path="/reception/patients/:id" element={<ReceptionPatientDetailPage />} />
+            <Route path="/reception/appointments" element={<ReceptionAppointmentsPage />} />
+            <Route path="/reception/queue" element={<QueueBoardPage />} />
           </Route>
         </Route>
 

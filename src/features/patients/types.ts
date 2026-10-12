@@ -33,3 +33,19 @@ export interface SelfRegisterPatientInput {
   email?: string;
   address?: string;
 }
+
+// Staff-facing registration (reception/nurse/doctor) - richer than the
+// patient's own self-registration: allergies are captured here because
+// they feed the always-visible allergy banner on clinical screens.
+export interface CreatePatientInput {
+  name: string;
+  dob: string;
+  gender: Gender;
+  phone: string;
+  email?: string;
+  address?: string;
+  bloodGroup?: BloodGroup;
+  allergies?: string[];
+  chronicConditions?: string[];
+  emergencyContact?: EmergencyContact;
+}

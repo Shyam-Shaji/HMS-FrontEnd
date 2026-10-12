@@ -33,3 +33,10 @@ export function humanizeStatus(value: string): string {
   const spaced = value.replace(/_/g, ' ');
   return spaced.charAt(0).toUpperCase() + spaced.slice(1);
 }
+
+// Local-calendar "today" as YYYY-MM-DD. toISOString() would give the UTC
+// date, which is yesterday/tomorrow for part of the day in most timezones.
+export function todayLocal(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
