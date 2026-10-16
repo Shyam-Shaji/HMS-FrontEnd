@@ -1,5 +1,5 @@
-import { apiClient } from "@/lib/api-client";
-import type { Appointment, BookAppointmentInput, QueueSnapshot, RescheduleAppointmentInput } from "./types";
+import { apiClient } from '@/lib/api-client';
+import type { Appointment, BookAppointmentInput, QueueSnapshot, RescheduleAppointmentInput } from './types';
 
 export function fetchMyAppointments() {
   return apiClient.get<never, Appointment[]>('/appointments/me');
@@ -21,8 +21,8 @@ export function fetchQueueSnapshot(doctorId: string, date: string) {
   return apiClient.get<never, QueueSnapshot>(`/appointments/queue/${doctorId}`, { params: { date } });
 }
 
-import type { Paginated } from "@/types/api";
-import type { AppointmentStatus } from "./types";
+import type { Paginated } from '@/types/api';
+import type { AppointmentStatus } from './types';
 
 export interface AppointmentSearchParams {
   doctorId?: string;
@@ -51,4 +51,16 @@ export function markAppointmentNoShow(id: string) {
 
 export function cancelAppointment(id: string, reason?: string) {
   return apiClient.patch<never, Appointment>(`/appointments/${id}/cancel`, { reason });
+}
+
+export function fetchAppointment(id: string) {
+  return apiClient.get<never, Appointment>(`/appointments/${id}`);
+}
+
+export function startConsultation(id: string) {
+  return apiClient.patch<never, Appointment>(`/appointments/${id}/start`);
+}
+
+export function completeConsultation(id: string) {
+  return apiClient.patch<never, Appointment>(`/appointments/${id}/complete`);
 }

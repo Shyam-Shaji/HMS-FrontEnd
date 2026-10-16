@@ -1,21 +1,21 @@
-import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Textarea } from "@/components/ui/textarea";
-import { 
-    Dialog ,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from "@/components/ui/dialog";
-import { cancelAppointment, checkInAppointment, markAppointmentNoShow } from "./api";
-import type { Appointment, AppointmentStatus, PopulatedRef } from "./types";
-import { getErrorMessage } from "@/lib/api-client";
-import { humanizeStatus } from "@/lib/format";
+import { useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { cancelAppointment, checkInAppointment, markAppointmentNoShow } from './api';
+import type { Appointment, AppointmentStatus, PopulatedRef } from './types';
+import { getErrorMessage } from '@/lib/api-client';
+import { humanizeStatus } from '@/lib/format';
 
 export function patientOf(a: Appointment): PopulatedRef | null {
   return typeof a.patientId === 'object' ? a.patientId : null;

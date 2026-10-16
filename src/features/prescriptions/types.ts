@@ -20,3 +20,17 @@ export interface Prescription {
   dispenseStatus: DispenseStatus;
   createdAt: string;
 }
+
+export interface PrescribedMedicineInput {
+  name: string;
+  dosage: string;
+  frequency: string;
+  duration: string;
+  instructions?: string;
+  quantity?: number;
+}
+
+export interface CreatePrescriptionInput {
+  medicines: PrescribedMedicineInput[];
+  notes?: string;
+}

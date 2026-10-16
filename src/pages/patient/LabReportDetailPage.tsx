@@ -1,15 +1,15 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, FileDown } from "lucide-react";
-import { PageHeader } from "@/components/layout/PageHeader";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
-import { fetchMyLabReportById } from "@/features/lab/api";
-import type { ResultParameter } from "@/features/lab/types";
-import { formatDate } from "@/lib/format";
-import { cn } from "@/lib/cn";
+import { useNavigate, useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { ArrowLeft, FileDown } from 'lucide-react';
+import { PageHeader } from '@/components/layout/PageHeader';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
+import { fetchMyLabReportById } from '@/features/lab/api';
+import type { ResultParameter } from '@/features/lab/types';
+import { formatDate } from '@/lib/format';
+import { cn } from '@/lib/cn';
 
 function flagVariant(flag: ResultParameter['flag']) {
   if (flag === 'critical') return 'destructive' as const;
@@ -46,7 +46,7 @@ export function LabReportDetailPage() {
         </Button>
         <PageHeader
           title={order.testNameSnapshot}
-          description={`Verified ${formatDate(order.verifiedAt)}${order.doctorId ? ` · Ordered by Dr. ${order.doctorId.name}` : ''}`}
+          description={`Verified ${formatDate(order.verifiedAt)}${order.orderedBy ? ` · Ordered by Dr. ${order.orderedBy.name}` : ''}`}
         />
       </div>
 

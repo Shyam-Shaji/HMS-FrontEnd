@@ -1,45 +1,40 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { CalendarPlus, ChevronRight } from "lucide-react";
-import { PageHeader } from "@/components/layout/PageHeader";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-    Dialog, 
-    DialogContent, 
-    DialogDescription, 
-    DialogFooter, 
-    DialogHeader, 
-    DialogTitle 
-} from "@/components/ui/dialog";
-import { Textarea } from "@/components/ui/textarea";
-import { cancelMyAppointment, fetchMyAppointments } from "@/features/appointments/api";
-import type { Appointment, AppointmentStatus } from "@/features/appointments/types";
-import { formatDate, formatTime12h, humanizeStatus } from "@/lib/format";
-import { getErrorMessage } from "@/lib/api-client";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
+import { CalendarPlus, ChevronRight } from 'lucide-react';
+import { PageHeader } from '@/components/layout/PageHeader';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Textarea } from '@/components/ui/textarea';
+import { cancelMyAppointment, fetchMyAppointments } from '@/features/appointments/api';
+import type { Appointment, AppointmentStatus } from '@/features/appointments/types';
+import { formatDate, formatTime12h, humanizeStatus } from '@/lib/format';
+import { getErrorMessage } from '@/lib/api-client';
 
 const UPCOMING_STATUSES: AppointmentStatus[] = ['booked', 'checked_in', 'in_consultation'];
 
-function statusVariant(
-  status: AppointmentStatus
-): 'default' | 'destructive' | 'secondary' {
+function statusVariant(status: AppointmentStatus): 'default' | 'success' | 'warning' | 'destructive' | 'secondary' {
   switch (status) {
     case 'completed':
-      return 'default';
-
+      return 'success';
+    case 'checked_in':
+    case 'in_consultation':
+      return 'warning';
     case 'cancelled':
     case 'no_show':
       return 'destructive';
-
-    case 'checked_in':
-    case 'in_consultation':
-      return 'secondary';
-
     default:
       return 'secondary';
   }

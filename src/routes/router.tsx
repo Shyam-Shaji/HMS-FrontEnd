@@ -1,41 +1,47 @@
-import { Routes, Route } from "react-router-dom";
-import { Role } from "@/types/auth";
-import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
-import { RoleGate } from "@/components/auth/RoleGate";
-import { PatientAppShell } from "@/components/layout/PatientAppShell";
-import { StaffAppShell } from "@/components/layout/StaffAppShell";
-import { ComingSoon } from "@/components/layout/ComingSoon";
+import { Routes, Route } from 'react-router-dom';
+import { Role } from '@/types/auth';
+import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
+import { RoleGate } from '@/components/auth/RoleGate';
+import { PatientAppShell } from '@/components/layout/PatientAppShell';
+import { StaffAppShell } from '@/components/layout/StaffAppShell';
+import { ComingSoon } from '@/components/layout/ComingSoon';
 
-import { LoginPage } from "@/pages/auth/LoginPage";
-import { OtpPage } from "@/pages/auth/OtpPage";
-import { RoleRedirectPage } from "@/pages/auth/RoleRedirectPage";
-import { ForbiddenPage } from "@/pages/errors/ForbiddenPage";
-import { NotFoundPage } from "@/pages/errors/NotFoundPage";
+import { LoginPage } from '@/pages/auth/LoginPage';
+import { OtpPage } from '@/pages/auth/OtpPage';
+import { RoleRedirectPage } from '@/pages/auth/RoleRedirectPage';
+import { ForbiddenPage } from '@/pages/errors/ForbiddenPage';
+import { NotFoundPage } from '@/pages/errors/NotFoundPage';
 
-import { PatientHomePage } from "@/pages/patient/PatientHomePage";
-import { AppointmentsPage } from "@/pages/patient/AppointmentsPage";
-import { BookAppointmentPage } from "@/pages/patient/BookAppointmentPage";
-import { AppointmentDetailPage } from "@/pages/patient/AppointmentDetailPage";
-import { RecordsPage } from "@/pages/patient/RecordsPage";
-import { RecordDetailPage } from "@/pages/patient/RecordDetailPage";
-import { PrescriptionsPage } from "@/pages/patient/PrescriptionsPage";
-import { PrescriptionDetailPage } from "@/pages/patient/PrescriptionDetailPage";
-import { LabReportsPage } from "@/pages/patient/LabReportsPage";
-import { LabReportDetailPage } from "@/pages/patient/LabReportDetailPage";
-import { BillingPage } from "@/pages/patient/BillingPage";
-import { InvoiceDetailPage } from "@/pages/patient/InvoiceDetailPage";
-import { ReceptionDashboardPage } from "@/pages/staff/ReceptionDashboardPage";
-import { ReceptionPatientsPage } from "@/pages/reception/ReceptionPatientsPage";
-import { ReceptionPatientDetailPage } from "@/pages/reception/ReceptionPatientDetailPage";
-import { ReceptionAppointmentsPage } from "@/pages/reception/ReceptionAppointmentsPage";
-import { QueueBoardPage } from "@/pages/reception/QueueBoardPage";
-import { DoctorDashboardPage } from "@/pages/staff/DoctorDashboardPage";
-import { NurseDashboardPage } from "@/pages/staff/NurseDashboardPage";
-import { PharmacyDashboardPage } from "@/pages/staff/PharmacyDashboardPage";
-import { LabDashboardPage } from "@/pages/staff/LabDashboardPage";
-import { BillingDashboardPage } from "@/pages/staff/BillingDashboardPage";
-import { AdminDashboardPage } from "@/pages/staff/AdminDashboardPage";
-import { SuperAdminDashboardPage } from "@/pages/super-admin/SuperAdminDashboardPage";
+import { PatientHomePage } from '@/pages/patient/PatientHomePage';
+import { AppointmentsPage } from '@/pages/patient/AppointmentsPage';
+import { BookAppointmentPage } from '@/pages/patient/BookAppointmentPage';
+import { AppointmentDetailPage } from '@/pages/patient/AppointmentDetailPage';
+import { RecordsPage } from '@/pages/patient/RecordsPage';
+import { RecordDetailPage } from '@/pages/patient/RecordDetailPage';
+import { PrescriptionsPage } from '@/pages/patient/PrescriptionsPage';
+import { PrescriptionDetailPage } from '@/pages/patient/PrescriptionDetailPage';
+import { LabReportsPage } from '@/pages/patient/LabReportsPage';
+import { LabReportDetailPage } from '@/pages/patient/LabReportDetailPage';
+import { BillingPage } from '@/pages/patient/BillingPage';
+import { InvoiceDetailPage } from '@/pages/patient/InvoiceDetailPage';
+import { ReceptionDashboardPage } from '@/pages/reception/ReceptionDashboardPage';
+import { ReceptionPatientsPage } from '@/pages/reception/ReceptionPatientsPage';
+import { ReceptionPatientDetailPage } from '@/pages/reception/ReceptionPatientDetailPage';
+import { ReceptionAppointmentsPage } from '@/pages/reception/ReceptionAppointmentsPage';
+import { QueueBoardPage } from '@/pages/reception/QueueBoardPage';
+import { DoctorDashboardPage } from '@/pages/doctor/DoctorDashboardPage';
+import { DoctorQueuePage } from '@/pages/doctor/DoctorQueuePage';
+import { DoctorSchedulePage } from '@/pages/doctor/DoctorSchedulePage';
+import { DoctorRoundsPage } from '@/pages/doctor/DoctorRoundsPage';
+import { RoundDetailPage } from '@/pages/doctor/RoundDetailPage';
+import { DoctorLabOrdersPage } from '@/pages/doctor/DoctorLabOrdersPage';
+import { ConsultationPage } from '@/pages/doctor/consultation/ConsultationPage';
+import { NurseDashboardPage } from '@/pages/staff/NurseDashboardPage';
+import { PharmacyDashboardPage } from '@/pages/staff/PharmacyDashboardPage';
+import { LabDashboardPage } from '@/pages/staff/LabDashboardPage';
+import { BillingDashboardPage } from '@/pages/staff/BillingDashboardPage';
+import { AdminDashboardPage } from '@/pages/staff/AdminDashboardPage';
+import { SuperAdminDashboardPage } from '@/pages/super-admin/SuperAdminDashboardPage';
 
 /**
  * One route tree, grouped by role. Every path here matches an entry in
@@ -97,10 +103,12 @@ export function AppRouter() {
         <Route element={<RoleGate allow={[Role.DOCTOR]} />}>
           <Route element={<StaffAppShell />}>
             <Route path="/doctor" element={<DoctorDashboardPage />} />
-            <Route path="/doctor/schedule" element={<ComingSoon title="My schedule" />} />
-            <Route path="/doctor/queue" element={<ComingSoon title="Patient queue" />} />
-            <Route path="/doctor/rounds" element={<ComingSoon title="Ward rounds" />} />
-            <Route path="/doctor/lab-orders" element={<ComingSoon title="Lab orders" />} />
+            <Route path="/doctor/schedule" element={<DoctorSchedulePage />} />
+            <Route path="/doctor/queue" element={<DoctorQueuePage />} />
+            <Route path="/doctor/consultation/:appointmentId" element={<ConsultationPage />} />
+            <Route path="/doctor/rounds" element={<DoctorRoundsPage />} />
+            <Route path="/doctor/rounds/:id" element={<RoundDetailPage />} />
+            <Route path="/doctor/lab-orders" element={<DoctorLabOrdersPage />} />
           </Route>
         </Route>
 

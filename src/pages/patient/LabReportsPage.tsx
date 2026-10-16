@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { ChevronRight, FlaskConical } from "lucide-react";
-import { PageHeader } from "@/components/layout/PageHeader";
-import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { fetchMyLabReports } from "@/features/lab/api";
-import { formatDate } from "@/lib/format";
+import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { ChevronRight, FlaskConical } from 'lucide-react';
+import { PageHeader } from '@/components/layout/PageHeader';
+import { Card, CardContent } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { fetchMyLabReports } from '@/features/lab/api';
+import { formatDate } from '@/lib/format';
 
 export function LabReportsPage() {
   const { data: reports, isLoading } = useQuery({
@@ -43,7 +43,7 @@ export function LabReportsPage() {
                     <p className="font-medium">{order.testNameSnapshot}</p>
                     <p className="mt-0.5 text-sm text-muted-foreground">
                       {formatDate(order.verifiedAt)}
-                      {order.doctorId ? ` · Ordered by Dr. ${order.doctorId.name}` : ''}
+                      {order.orderedBy ? ` · Ordered by Dr. ${order.orderedBy.name}` : ''}
                     </p>
                   </div>
                   <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />

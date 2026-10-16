@@ -31,3 +31,34 @@ export interface MedicalRecordDetail extends MedicalRecordSummary {
   referredTo?: string;
   status: 'draft' | 'finalized';
 }
+
+export interface PatientSummary {
+  patientId: string;
+  name: string;
+  uhid: string;
+  dob: string;
+  gender: string;
+  bloodGroup: string;
+  allergies: string[];
+  chronicConditions: string[];
+  lastVisit: MedicalRecordSummary | null;
+}
+
+export interface UpdateVitalsInput {
+  heightCm?: number;
+  weightKg?: number;
+  temperatureC?: number;
+  bloodPressureSystolic?: number;
+  bloodPressureDiastolic?: number;
+  pulseRate?: number;
+  respiratoryRate?: number;
+  spo2?: number;
+}
+
+export interface UpdateClinicalInput {
+  chiefComplaint?: string;
+  diagnosis?: Diagnosis[];
+  doctorNotes?: string;
+  followUpDate?: string;
+  referredTo?: string;
+}
