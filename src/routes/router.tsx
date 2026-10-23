@@ -1,3 +1,4 @@
+import { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Role } from '@/types/auth';
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
@@ -5,43 +6,49 @@ import { RoleGate } from '@/components/auth/RoleGate';
 import { PatientAppShell } from '@/components/layout/PatientAppShell';
 import { StaffAppShell } from '@/components/layout/StaffAppShell';
 import { ComingSoon } from '@/components/layout/ComingSoon';
+import { AppLoadingScreen } from '@/components/layout/AppLoadingScreen';
 
-import { LoginPage } from '@/pages/auth/LoginPage';
-import { OtpPage } from '@/pages/auth/OtpPage';
-import { RoleRedirectPage } from '@/pages/auth/RoleRedirectPage';
-import { ForbiddenPage } from '@/pages/errors/ForbiddenPage';
-import { NotFoundPage } from '@/pages/errors/NotFoundPage';
+const LoginPage = lazy(() => import('@/pages/auth/LoginPage').then((m) => ({ default: m.LoginPage })));
+const OtpPage = lazy(() => import('@/pages/auth/OtpPage').then((m) => ({ default: m.OtpPage })));
+const RoleRedirectPage = lazy(() => import('@/pages/auth/RoleRedirectPage').then((m) => ({ default: m.RoleRedirectPage })));
+const ForbiddenPage = lazy(() => import('@/pages/errors/ForbiddenPage').then((m) => ({ default: m.ForbiddenPage })));
+const NotFoundPage = lazy(() => import('@/pages/errors/NotFoundPage').then((m) => ({ default: m.NotFoundPage })));
 
-import { PatientHomePage } from '@/pages/patient/PatientHomePage';
-import { AppointmentsPage } from '@/pages/patient/AppointmentsPage';
-import { BookAppointmentPage } from '@/pages/patient/BookAppointmentPage';
-import { AppointmentDetailPage } from '@/pages/patient/AppointmentDetailPage';
-import { RecordsPage } from '@/pages/patient/RecordsPage';
-import { RecordDetailPage } from '@/pages/patient/RecordDetailPage';
-import { PrescriptionsPage } from '@/pages/patient/PrescriptionsPage';
-import { PrescriptionDetailPage } from '@/pages/patient/PrescriptionDetailPage';
-import { LabReportsPage } from '@/pages/patient/LabReportsPage';
-import { LabReportDetailPage } from '@/pages/patient/LabReportDetailPage';
-import { BillingPage } from '@/pages/patient/BillingPage';
-import { InvoiceDetailPage } from '@/pages/patient/InvoiceDetailPage';
-import { ReceptionDashboardPage } from '@/pages/reception/ReceptionDashboardPage';
-import { ReceptionPatientsPage } from '@/pages/reception/ReceptionPatientsPage';
-import { ReceptionPatientDetailPage } from '@/pages/reception/ReceptionPatientDetailPage';
-import { ReceptionAppointmentsPage } from '@/pages/reception/ReceptionAppointmentsPage';
-import { QueueBoardPage } from '@/pages/reception/QueueBoardPage';
-import { DoctorDashboardPage } from '@/pages/doctor/DoctorDashboardPage';
-import { DoctorQueuePage } from '@/pages/doctor/DoctorQueuePage';
-import { DoctorSchedulePage } from '@/pages/doctor/DoctorSchedulePage';
-import { DoctorRoundsPage } from '@/pages/doctor/DoctorRoundsPage';
-import { RoundDetailPage } from '@/pages/doctor/RoundDetailPage';
-import { DoctorLabOrdersPage } from '@/pages/doctor/DoctorLabOrdersPage';
-import { ConsultationPage } from '@/pages/doctor/consultation/ConsultationPage';
-import { NurseDashboardPage } from '@/pages/staff/NurseDashboardPage';
-import { PharmacyDashboardPage } from '@/pages/staff/PharmacyDashboardPage';
-import { LabDashboardPage } from '@/pages/staff/LabDashboardPage';
-import { BillingDashboardPage } from '@/pages/staff/BillingDashboardPage';
-import { AdminDashboardPage } from '@/pages/staff/AdminDashboardPage';
-import { SuperAdminDashboardPage } from '@/pages/super-admin/SuperAdminDashboardPage';
+const PatientHomePage = lazy(() => import('@/pages/patient/PatientHomePage').then((m) => ({ default: m.PatientHomePage })));
+const AppointmentsPage = lazy(() => import('@/pages/patient/AppointmentsPage').then((m) => ({ default: m.AppointmentsPage })));
+const BookAppointmentPage = lazy(() => import('@/pages/patient/BookAppointmentPage').then((m) => ({ default: m.BookAppointmentPage })));
+const AppointmentDetailPage = lazy(() => import('@/pages/patient/AppointmentDetailPage').then((m) => ({ default: m.AppointmentDetailPage })));
+const RecordsPage = lazy(() => import('@/pages/patient/RecordsPage').then((m) => ({ default: m.RecordsPage })));
+const RecordDetailPage = lazy(() => import('@/pages/patient/RecordDetailPage').then((m) => ({ default: m.RecordDetailPage })));
+const PrescriptionsPage = lazy(() => import('@/pages/patient/PrescriptionsPage').then((m) => ({ default: m.PrescriptionsPage })));
+const PrescriptionDetailPage = lazy(() => import('@/pages/patient/PrescriptionDetailPage').then((m) => ({ default: m.PrescriptionDetailPage })));
+const LabReportsPage = lazy(() => import('@/pages/patient/LabReportsPage').then((m) => ({ default: m.LabReportsPage })));
+const LabReportDetailPage = lazy(() => import('@/pages/patient/LabReportDetailPage').then((m) => ({ default: m.LabReportDetailPage })));
+const BillingPage = lazy(() => import('@/pages/patient/BillingPage').then((m) => ({ default: m.BillingPage })));
+const InvoiceDetailPage = lazy(() => import('@/pages/patient/InvoiceDetailPage').then((m) => ({ default: m.InvoiceDetailPage })));
+const ReceptionDashboardPage = lazy(() => import('@/pages/reception/ReceptionDashboardPage').then((m) => ({ default: m.ReceptionDashboardPage })));
+const ReceptionPatientsPage = lazy(() => import('@/pages/reception/ReceptionPatientsPage').then((m) => ({ default: m.ReceptionPatientsPage })));
+const ReceptionPatientDetailPage = lazy(() => import('@/pages/reception/ReceptionPatientDetailPage').then((m) => ({ default: m.ReceptionPatientDetailPage })));
+const ReceptionAppointmentsPage = lazy(() => import('@/pages/reception/ReceptionAppointmentsPage').then((m) => ({ default: m.ReceptionAppointmentsPage })));
+const QueueBoardPage = lazy(() => import('@/pages/reception/QueueBoardPage').then((m) => ({ default: m.QueueBoardPage })));
+const DoctorDashboardPage = lazy(() => import('@/pages/doctor/DoctorDashboardPage').then((m) => ({ default: m.DoctorDashboardPage })));
+const DoctorQueuePage = lazy(() => import('@/pages/doctor/DoctorQueuePage').then((m) => ({ default: m.DoctorQueuePage })));
+const DoctorSchedulePage = lazy(() => import('@/pages/doctor/DoctorSchedulePage').then((m) => ({ default: m.DoctorSchedulePage })));
+const DoctorRoundsPage = lazy(() => import('@/pages/doctor/DoctorRoundsPage').then((m) => ({ default: m.DoctorRoundsPage })));
+const RoundDetailPage = lazy(() => import('@/pages/doctor/RoundDetailPage').then((m) => ({ default: m.RoundDetailPage })));
+const DoctorLabOrdersPage = lazy(() => import('@/pages/doctor/DoctorLabOrdersPage').then((m) => ({ default: m.DoctorLabOrdersPage })));
+const ConsultationPage = lazy(() => import('@/pages/doctor/consultation/ConsultationPage').then((m) => ({ default: m.ConsultationPage })));
+const NurseDashboardPage = lazy(() => import('@/pages/nurse/NurseDashboardPage').then((m) => ({ default: m.NurseDashboardPage })));
+const WardBoardPage = lazy(() => import('@/pages/nurse/WardBoardPage').then((m) => ({ default: m.WardBoardPage })));
+const NurseAdmissionsPage = lazy(() => import('@/pages/nurse/NurseAdmissionsPage').then((m) => ({ default: m.NurseAdmissionsPage })));
+const NurseAdmissionDetailPage = lazy(() => import('@/pages/nurse/NurseAdmissionDetailPage').then((m) => ({ default: m.NurseAdmissionDetailPage })));
+const MedicationsPage = lazy(() => import('@/pages/nurse/MedicationsPage').then((m) => ({ default: m.MedicationsPage })));
+const TriagePage = lazy(() => import('@/pages/nurse/TriagePage').then((m) => ({ default: m.TriagePage })));
+const PharmacyDashboardPage = lazy(() => import('@/pages/staff/PharmacyDashboardPage').then((m) => ({ default: m.PharmacyDashboardPage })));
+const LabDashboardPage = lazy(() => import('@/pages/staff/LabDashboardPage').then((m) => ({ default: m.LabDashboardPage })));
+const BillingDashboardPage = lazy(() => import('@/pages/staff/BillingDashboardPage').then((m) => ({ default: m.BillingDashboardPage })));
+const AdminDashboardPage = lazy(() => import('@/pages/staff/AdminDashboardPage').then((m) => ({ default: m.AdminDashboardPage })));
+const SuperAdminDashboardPage = lazy(() => import('@/pages/super-admin/SuperAdminDashboardPage').then((m) => ({ default: m.SuperAdminDashboardPage })));
 
 /**
  * One route tree, grouped by role. Every path here matches an entry in
@@ -57,6 +64,9 @@ import { SuperAdminDashboardPage } from '@/pages/super-admin/SuperAdminDashboard
  */
 export function AppRouter() {
   return (
+    // Every page is its own chunk, loaded on first visit - a patient never
+    // downloads the pharmacy screens, and vice versa.
+    <Suspense fallback={<AppLoadingScreen />}>
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/otp" element={<OtpPage />} />
@@ -116,9 +126,11 @@ export function AppRouter() {
         <Route element={<RoleGate allow={[Role.NURSE]} />}>
           <Route element={<StaffAppShell />}>
             <Route path="/nurse" element={<NurseDashboardPage />} />
-            <Route path="/nurse/ward-board" element={<ComingSoon title="Ward board" />} />
-            <Route path="/nurse/admissions" element={<ComingSoon title="Admissions" />} />
-            <Route path="/nurse/medications" element={<ComingSoon title="Medication (MAR)" />} />
+            <Route path="/nurse/triage" element={<TriagePage />} />
+            <Route path="/nurse/ward-board" element={<WardBoardPage />} />
+            <Route path="/nurse/admissions" element={<NurseAdmissionsPage />} />
+            <Route path="/nurse/admissions/:id" element={<NurseAdmissionDetailPage />} />
+            <Route path="/nurse/medications" element={<MedicationsPage />} />
           </Route>
         </Route>
 
@@ -174,5 +186,6 @@ export function AppRouter() {
 
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
+    </Suspense>
   );
 }

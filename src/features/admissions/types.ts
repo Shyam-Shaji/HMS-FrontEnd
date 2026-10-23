@@ -16,6 +16,7 @@ export interface Admission {
   admissionDate: string;
   status: 'admitted' | 'discharged';
   dischargeDate?: string;
+  dischargeSummary?: { nurseChecklistCompleted?: boolean; followUpInstructions?: string };
 }
 
 export interface VitalsLogEntry {
@@ -65,3 +66,31 @@ export interface DischargeInput {
   summary?: string;
   followUpInstructions?: string;
 }
+
+export interface AdmitPatientInput {
+  patientId: string;
+  wardId: string;
+  bedId: string;
+  admissionType: 'emergency' | 'planned';
+  admittingDoctorId: string;
+  reasonForAdmission?: string;
+  provisionalDiagnosis?: string;
+}
+
+export interface TransferInput {
+  toWardId: string;
+  toBedId: string;
+  reason?: string;
+}
+
+export interface AddVitalsLogInput {
+  temperatureC?: number;
+  bloodPressureSystolic?: number;
+  bloodPressureDiastolic?: number;
+  pulseRate?: number;
+  respiratoryRate?: number;
+  spo2?: number;
+  notes?: string;
+}
+
+export type AdministrationStatus = 'administered' | 'missed' | 'held';

@@ -45,3 +45,25 @@ export function createMedicationOrder(id: string, input: CreateMedicationOrderIn
 export function dischargeAdmission(id: string, input: DischargeInput) {
   return apiClient.patch<never, Admission>(`/admissions/${id}/discharge`, input);
 }
+
+import type { AddVitalsLogInput, AdministrationStatus, AdmitPatientInput, TransferInput } from './types';
+
+export function admitPatient(input: AdmitPatientInput) {
+  return apiClient.post<never, Admission>('/admissions', input);
+}
+
+export function transferAdmission(id: string, input: TransferInput) {
+  return apiClient.patch<never, Admission>(`/admissions/${id}/transfer`, input);
+}
+
+export function addVitalsLog(id: string, input: AddVitalsLogInput) {
+  return apiClient.post<never, unknown>(`/admissions/${id}/vitals`, input);
+}
+
+export function administerMedication(admissionId: string, orderId: string, status: AdministrationStatus, notes?: string) {
+  return apiClient.patch<never, MedicationOrder>(`/admissions/${admissionId}/medications/${orderId}/administer`, { status, notes });
+}
+
+export function completeNurseChecklist(id: string) {
+  return apiClient.patch<never, Admission>(`/admissions/${id}/discharge/nurse-checklist`);
+}

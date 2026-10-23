@@ -11,7 +11,8 @@ import { DropdownMenu,
   DropdownMenuItem, 
   DropdownMenuLabel, 
   DropdownMenuSeparator, 
-  DropdownMenuTrigger } from '../ui/dropdown-menu';
+  DropdownMenuTrigger 
+} from '../ui/dropdown-menu';
 import { Button } from '../ui/button';
 
 function initials(label: string) {
