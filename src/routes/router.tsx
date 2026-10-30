@@ -44,8 +44,14 @@ const NurseAdmissionsPage = lazy(() => import('@/pages/nurse/NurseAdmissionsPage
 const NurseAdmissionDetailPage = lazy(() => import('@/pages/nurse/NurseAdmissionDetailPage').then((m) => ({ default: m.NurseAdmissionDetailPage })));
 const MedicationsPage = lazy(() => import('@/pages/nurse/MedicationsPage').then((m) => ({ default: m.MedicationsPage })));
 const TriagePage = lazy(() => import('@/pages/nurse/TriagePage').then((m) => ({ default: m.TriagePage })));
-const PharmacyDashboardPage = lazy(() => import('@/pages/staff/PharmacyDashboardPage').then((m) => ({ default: m.PharmacyDashboardPage })));
-const LabDashboardPage = lazy(() => import('@/pages/staff/LabDashboardPage').then((m) => ({ default: m.LabDashboardPage })));
+const PharmacyDashboardPage = lazy(() => import('@/pages/pharmacy/PharmacyDashboardPage').then((m) => ({ default: m.PharmacyDashboardPage })));
+const DispenseQueuePage = lazy(() => import('@/pages/pharmacy/DispenseQueuePage').then((m) => ({ default: m.DispenseQueuePage })));
+const InventoryPage = lazy(() => import('@/pages/pharmacy/InventoryPage').then((m) => ({ default: m.InventoryPage })));
+const PurchaseOrdersPage = lazy(() => import('@/pages/pharmacy/PurchaseOrdersPage').then((m) => ({ default: m.PurchaseOrdersPage })));
+const LabDashboardPage = lazy(() => import('@/pages/lab/LabDashboardPage').then((m) => ({ default: m.LabDashboardPage })));
+const LabQueuePage = lazy(() => import('@/pages/lab/LabQueuePage').then((m) => ({ default: m.LabQueuePage })));
+const LabOrderWorkPage = lazy(() => import('@/pages/lab/LabOrderWorkPage').then((m) => ({ default: m.LabOrderWorkPage })));
+const TestCataloguePage = lazy(() => import('@/pages/lab/TestCataloguePage').then((m) => ({ default: m.TestCataloguePage })));
 const BillingDashboardPage = lazy(() => import('@/pages/staff/BillingDashboardPage').then((m) => ({ default: m.BillingDashboardPage })));
 const AdminDashboardPage = lazy(() => import('@/pages/staff/AdminDashboardPage').then((m) => ({ default: m.AdminDashboardPage })));
 const SuperAdminDashboardPage = lazy(() => import('@/pages/super-admin/SuperAdminDashboardPage').then((m) => ({ default: m.SuperAdminDashboardPage })));
@@ -138,9 +144,9 @@ export function AppRouter() {
         <Route element={<RoleGate allow={[Role.PHARMACIST]} />}>
           <Route element={<StaffAppShell />}>
             <Route path="/pharmacy" element={<PharmacyDashboardPage />} />
-            <Route path="/pharmacy/queue" element={<ComingSoon title="Dispense queue" />} />
-            <Route path="/pharmacy/inventory" element={<ComingSoon title="Inventory" />} />
-            <Route path="/pharmacy/purchase-orders" element={<ComingSoon title="Purchase orders" />} />
+            <Route path="/pharmacy/queue" element={<DispenseQueuePage />} />
+            <Route path="/pharmacy/inventory" element={<InventoryPage />} />
+            <Route path="/pharmacy/purchase-orders" element={<PurchaseOrdersPage />} />
           </Route>
         </Route>
 
@@ -148,8 +154,9 @@ export function AppRouter() {
         <Route element={<RoleGate allow={[Role.LAB_TECHNICIAN]} />}>
           <Route element={<StaffAppShell />}>
             <Route path="/lab" element={<LabDashboardPage />} />
-            <Route path="/lab/queue" element={<ComingSoon title="Order queue" />} />
-            <Route path="/lab/catalogue" element={<ComingSoon title="Test catalogue" />} />
+            <Route path="/lab/queue" element={<LabQueuePage />} />
+            <Route path="/lab/queue/:id" element={<LabOrderWorkPage />} />
+            <Route path="/lab/catalogue" element={<TestCataloguePage />} />
           </Route>
         </Route>
 

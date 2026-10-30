@@ -1,12 +1,13 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { ArrowLeft, FileDown } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { fetchMyLabReportById } from '@/features/lab/api';
+import { ReportFileButton } from '@/features/lab/ReportFileButton';
 import type { ResultParameter } from '@/features/lab/types';
 import { formatDate } from '@/lib/format';
 import { cn } from '@/lib/cn';
@@ -88,16 +89,11 @@ export function LabReportDetailPage() {
         </Card>
       )}
 
-      {order.reportFileUrl && (
+      {order.reportFileMime && (
         <Card className="mb-4">
           <CardContent className="flex items-center justify-between p-4">
             <p className="text-sm font-medium">Full report</p>
-            <a href={order.reportFileUrl} target="_blank" rel="noreferrer">
-              <Button variant="outline" size="sm">
-                <FileDown className="h-4 w-4" />
-                View / download
-              </Button>
-            </a>
+            <ReportFileButton path={`/lab/me/${order._id}/report-file`} mime={order.reportFileMime} size={order.reportFileSize} label="View / download" />
           </CardContent>
         </Card>
       )}

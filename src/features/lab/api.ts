@@ -1,6 +1,6 @@
-import { apiClient } from "@/lib/api-client";
-import type { Paginated } from "@/types/api";
-import type { CreateLabOrderInput, LabOrder, LabOrderPriority, LabOrderStatus, LabTest } from "./types";
+import { apiClient } from '@/lib/api-client';
+import type { Paginated } from '@/types/api';
+import type { CreateLabOrderInput, LabOrder, LabOrderPriority, LabTest, ResultParameterInput, SaveLabTestInput } from './types';
 
 // ---- patient portal ----
 export function fetchMyLabReports() {
@@ -12,8 +12,8 @@ export function fetchMyLabReportById(id: string) {
 }
 
 // ---- clinical staff ----
-export function searchLabTests(q?: string) {
-  return apiClient.get<never, LabTest[]>('/lab/tests', { params: { q: q || undefined } });
+export function searchLabTests(q?: string, includeInactive?: boolean) {
+  return apiClient.get<never, LabTest[]>('/lab/tests', { params: { q: q || undefined, includeInactive: includeInactive || undefined } });
 }
 
 export function orderLabFromAppointment(appointmentId: string, input: CreateLabOrderInput) {
@@ -25,7 +25,9 @@ export function orderLabFromAdmission(admissionId: string, input: CreateLabOrder
 }
 
 export interface LabOrderSearchParams {
-  status?: LabOrderStatus;
+  // One status, or comma-separated ("sample_collected,in_progress").
+  status?: string;
+  verifiedFrom?: string;
   priority?: LabOrderPriority;
   patientId?: string;
   orderedBy?: string;
@@ -44,4 +46,34 @@ export function fetchLabOrder(id: string) {
 // Verified results only - what a doctor reviews before/while consulting.
 export function fetchPatientLabHistory(patientId: string) {
   return apiClient.get<never, LabOrder[]>(`/lab/patients/${patientId}/history`);
+}
+
+// ---- lab technician ----
+export function createLabTest(input: SaveLabTestInput) {
+  return apiClient.post<never, LabTest>('/lab/tests', input);
+}
+export function updateLabTest(id: string, input: Partial<SaveLabTestInput>) {
+  return apiClient.patch<never, LabTest>(`/lab/tests/${id}`, input);
+}
+
+export function collectSample(id: string) {
+  return apiClient.patch<never, LabOrder>(`/lab/orders/${id}/collect-sample`);
+}
+export function startProcessing(id: string) {
+  return apiClient.patch<never, LabOrder>(`/lab/orders/${id}/start-processing`);
+}
+export function saveLabResult(id: string, input: { resultParameters?: ResultParameterInput[]; resultNotes?: string }) {
+  return apiClient.patch<never, LabOrder>(`/lab/orders/${id}/result`, input);
+}
+export function verifyLabOrder(id: string) {
+  return apiClient.patch<never, LabOrder>(`/lab/orders/${id}/verify`);
+}
+export function cancelLabOrder(id: string, reason?: string) {
+  return apiClient.patch<never, LabOrder>(`/lab/orders/${id}/cancel`, { reason });
+}
+
+export function uploadLabReportFile(id: string, file: File) {
+  const form = new FormData();
+  form.append('file', file);
+  return apiClient.post<never, LabOrder>(`/lab/orders/${id}/report-file`, form);
 }

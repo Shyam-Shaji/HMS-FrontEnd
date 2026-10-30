@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react";
+import type { LucideIcon } from 'lucide-react';
 import {
   LayoutDashboard,
   CalendarDays,
@@ -18,7 +18,7 @@ import {
   CreditCard,
   Hospital,
 } from 'lucide-react';
-import { Role } from "@/types/auth";
+import { Role } from '@/types/auth';
 
 export interface NavItem {
   label: string;
@@ -54,6 +54,7 @@ const NAV_BY_ROLE: Record<Role, NavItem[]> = {
   ],
   [Role.NURSE]: [
     { label: 'Dashboard', path: '/nurse', icon: LayoutDashboard },
+    { label: 'OPD triage', path: '/nurse/triage', icon: Activity },
     { label: 'Ward board', path: '/nurse/ward-board', icon: BedDouble },
     { label: 'Admissions', path: '/nurse/admissions', icon: ClipboardList },
     { label: 'Medication (MAR)', path: '/nurse/medications', icon: Pill },

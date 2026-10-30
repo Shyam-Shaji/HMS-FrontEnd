@@ -13,6 +13,8 @@ export type DispenseStatus = 'not_dispensed' | 'partially_dispensed' | 'fully_di
 
 export interface Prescription {
   _id: string;
+  // Populated on the pharmacy dispense queue only.
+  patientId?: { _id: string; name: string; uhid: string; phone?: string; allergies?: string[] };
   doctorId?: { _id: string; name: string; department?: string };
   medicines: PrescribedMedicine[];
   notes?: string;

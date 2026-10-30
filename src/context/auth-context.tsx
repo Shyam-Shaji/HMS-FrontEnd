@@ -3,7 +3,6 @@ import { apiClient } from '@/lib/api-client';
 import { tokenStorage } from '@/lib/token-storage';
 import { Role, type AuthUser, type LoginResponse } from '@/types/auth';
 
-
 interface AuthContextValue {
   user: AuthUser | null;
   isLoading: boolean;
